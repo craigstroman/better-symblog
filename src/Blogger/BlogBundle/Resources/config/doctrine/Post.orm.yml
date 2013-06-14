@@ -1,0 +1,21 @@
+Blogger\BlogBundle\Entity\Post:
+    type:  entity
+    table: posts
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        created_at:
+            type: datetime
+        post_creator:
+            type: integer
+        post_title:
+            type: string
+            length: 300
+        post_text:
+            type: string
+            length: longtext
+  
+

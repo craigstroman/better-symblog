@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+{%block body%}
+            {% block fos_user_content %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                                <form action="{{ path('blogger_blog_create_new_post') }}" {{ form_enctype(form) }} method="POST" name="new_post" id="new_post_form">    
+                                            {{ form_row(form._token) }} 
+                                           <input type="hidden" name="form[post_creator]" id="form_post_creator" value="{{app.user.id}}"/>
+                                            <div class="row">
+                                                <label for="form_post_title">Post Title:</label>
+                                                <div class="controls">
+                                                    <input type="text" name="form[post_title]" id="form_post_title" placeholder="Enter post title"/>
+                                                </div>
+                                            </div>
+                                            <div class="clear">&nbsp;</div>
+{#                                            <div class="row">
+                                                <label for="form_post_keywords">Post Keywords:</label>
+                                                <div class="controls">
+                                                    <input type="text" name="form[post_keywords]" id="form_post_keywords" placeholder="Enter post keywords seperated by ,"/>
+                                                </div>
+                                            </div>
+                                            <div class="clear">&nbsp;</div>
+#}                                            <div class="row">
+                                                <label for="form_post_text">Post Content:</label>
+                                                <div class="controls">
+                                                    <textarea name="form[post_text]" id="form_post_text"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="clear">&nbsp;</div>
+                                            <div class="row">
+                                                <label for="submit">&nbsp;</label>
+                                                <div class="controls">
+                                                    <button type="submit" name="submit" id="submit">Create Post</button>
+                                                </div>
+                                            </div>
+                                </form>
+                {% endif %}
+            {% endblock fos_user_content %}
+{% endblock body %}    

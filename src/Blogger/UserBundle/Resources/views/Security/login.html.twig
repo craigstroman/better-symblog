@@ -1,0 +1,65 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+ {% block body %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post" id="login_form">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <div class="row">
+        <label for="username">Username:</label>
+        <div class="controls">
+            <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Username"/>            
+        </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="row">
+        <label for="password">Password:</label>
+        <div class="controls">
+            <input type="password" id="password" name="_password" placeholder="Password"/>      
+        </div>              
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="row">
+        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">Remember Me</label>        
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="row">
+        <label for="submit">&nbsp;</label>
+        <button id="_submit" name="_submit">Login</button>
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="row">
+        <label for="forgot-login">&nbsp;</label>
+        <div class="controls">
+            <a href="#">Forgot login information?</a>
+        </div>
+    </div>    
+</form>
+{% endblock fos_user_content %}
+{% block javascripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>    
+<script src="/js/jquery-validate.min.js"></script>    
+<script>
+    $(function(){
+
+        var rule_set1 = {
+          required: true,
+          minlength: 2
+        };
+        
+        
+        var validator = $('#login_form').validate({
+                rules: {
+                    '_username': rule_set1,
+                    '_password': rule_set1
+                }
+	});        
+    });
+</script>
+{%endblock javascripts%}
+{%endblock body%}

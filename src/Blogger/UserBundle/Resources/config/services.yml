@@ -1,0 +1,7 @@
+# src/Acme/UserBundle/Resources/config/services.yml
+services:
+    blogger.registration.form.type:
+        class: Blogger\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: blog_user_registration }

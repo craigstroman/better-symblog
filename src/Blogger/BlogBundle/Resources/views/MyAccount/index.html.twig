@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+{%block body%}
+            {% block fos_user_content %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}{#<div>{{ dump(app.user) }}</div>#}
+                    <div class="clear">&nbsp;</div>
+                    <div><a href="{{ path('fos_user_profile_show') }}">Profile</a></div>
+                    <div class="clear">&nbsp;</div>
+                    <div>My Posts</div>
+                    <div class="clear">&nbsp;</div>
+                    <div>My Comments</div>                    
+                {% endif %}
+            {% endblock fos_user_content %}
+{% endblock body %}                        

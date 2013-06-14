@@ -1,0 +1,82 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" id="register_form">    
+           <div class="row">
+                <label for="first_name">First Name:</label>
+                <div class="controls">
+                    <input type="text" name="fos_user_registration_form[first_name]" id="first_name" placeholder="Enter your first name"/>
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="last_name">Last Name:</label>
+                <div class="controls">
+                    <input type="text" name="fos_user_registration_form[last_name]" id="last_name" placeholder="Enter your last name"/>
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div>             
+            <div class="row">
+                <label for="fos_user_registration_form_email">Email Address:</label>
+                <div class="controls">
+                    <input type="email" name="fos_user_registration_form[email]" id="fos_user_registration_form_email" placeholder="you@your-host.com"/>
+                </div>
+            </div>
+           <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="fos_user_registration_form_username">Username:</label>
+                <div class="controls">
+                    <input type="text" name="fos_user_registration_form[username]" id="fos_user_registration_form_username" placeholder="Username"/>
+                </div>
+            </div>            
+            <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="fos_user_registration_form_plainPassword_first">Password:</label>
+                <div class="controls">
+                    <input type="password" name="fos_user_registration_form[plainPassword][first]" id="fos_user_registration_form_plainPassword_first" placeholder="Password"/>
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="password_confirmation">Password Confirmation:</label>
+                <div class="controls">
+                    <input type="password" name="fos_user_registration_form[plainPassword][second]" id="fos_user_registration_form_plainPassword_second" placeholder="Password confirmation"/>
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="submit">&nbsp;</label>
+                <div class="controls">
+                    <button type="submit" name="submit" id="submit">Register</button>
+                </div>
+            </div>            
+            {{ form_row(form._token) }}  
+</form>
+
+{% block javascripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>    
+<script src="/js/jquery-validate.min.js"></script>    
+<script>
+    $(function(){
+
+        var rule_set1 = {
+          required: true,
+          minlength: 2
+        };
+        
+        var rule_set2 = {
+            required: true,
+            minlength: 2,
+            email: true
+        }
+        
+        var validator = $('#register_form').validate({
+                rules: {
+                    'fos_user_registration_form[first_name]': rule_set1,
+                    'fos_user_registration_form[email]': rule_set2,
+                    'fos_user_registration_form[username]': rule_set1,
+                    'fos_user_registration_form[plainPassword][first]': rule_set1
+                }
+	});        
+    });
+</script>
+{%endblock javascripts%}

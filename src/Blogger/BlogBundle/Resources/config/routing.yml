@@ -1,0 +1,19 @@
+blogger_blog_homepage:
+    pattern:  /
+    defaults: { _controller: BloggerBlogBundle:Default:index }
+
+blogger_blog_my_account:
+    pattern:  /my-account
+    defaults: { _controller: BloggerBlogBundle:Blog:myAccount }    
+    
+blogger_blog_create_new_post:
+   pattern:  /new-post
+   defaults: { _controller: BloggerBlogBundle:Blog:createPost }
+
+BloggerBlogBundle_blog_show:
+    pattern:  /article/{id}/{slug}
+    defaults: { _controller: BloggerBlogBundle:Blog:show }
+    requirements:
+        _method:  GET
+        id: \d+
+        

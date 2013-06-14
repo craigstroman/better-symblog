@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8" />
+        <title>{% block title %}{% endblock %}better symblog</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        {% block stylesheets %}
+            <link href="http://fonts.googleapis.com/css?family=Irish+Grover" rel="stylesheet"/>
+            <link href="http://fonts.googleapis.com/css?family=La+Belle+Aurore" rel="stylesheet"/>
+            <link href="{{ asset('css/screen.css') }}" rel="stylesheet" />
+        {% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <div id="header">
+                    <div class="top">{% block navigation %}
+                            <nav>
+                                <ul id="main-nav">
+                                    <li><a href="{{ path('blogger_blog_homepage') }}">Home</a></li> {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li><a href="{{ path('blogger_blog_my_account')}}">My Account</a></li>{% else %}      
+                                    <li><a href="{{ path('fos_user_registration_register') }}">Sign Up</a></li>
+                                    <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>{% endif %}
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </nav>{% endblock %}{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}<div class="clear">&nbsp;</div>
+                            <div id="account-holder">Hello {{ app.user.FirstName }}, <a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></div>
+                        <div class="clear-no-space">&nbsp;</div>{% endif %}<div class="clear-no-space">&nbsp;</div>
+                    </div>
+                <hgroup>
+                    <h2>{% block blog_title %}<a href="#">better symblog</a>{% endblock %}</h2>
+                    <h3>{% block blog_tagline %}<a href="#">creating a blog in Symfony2</a>{% endblock %}</h3>
+                </hgroup>
+                </div>
+            </header>
+            <section>
+                <div class="main-col">
+                   {% block body %}{% endblock %} 
+                </div>                
+            </section>
+            <aside class="sidebar">
+                {% block sidebar %}{% endblock %}
+            </aside>
+            <div class="clear">&nbsp;</div>
+            <footer>
+                <div id="footer">
+                    {% block footer %}
+                        Better Symblog - By Craig Stroman
+                    {% endblock %}
+                </div>                
+            </footer>
+        </div>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

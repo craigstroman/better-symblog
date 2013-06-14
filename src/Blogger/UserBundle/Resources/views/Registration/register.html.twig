@@ -1,0 +1,10 @@
+{% extends 'UserBundle::layout.html.twig' %}
+
+ {% block body %}
+    {% block fos_user_content %}
+        {% include "UserBundle:Registration:register_content.html.twig" %}
+    {% endblock fos_user_content %}
+{% endblock body %}          
+        
+    
+ 

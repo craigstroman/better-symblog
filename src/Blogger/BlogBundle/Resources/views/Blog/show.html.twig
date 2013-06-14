@@ -1,0 +1,25 @@
+{# src/Blogger/BlogBundle/Resouces/views/Blog/show.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ blog.PostTitle }}{% endblock %}
+
+{% block body %}
+ {#<div>{{ dump(blog.PostTitle) }}</div>#}
+
+   
+   
+   <article>
+        <div class="blog-article">
+            <header>
+                <div class="date"><time datetime="{{ blog.CreatedAt|date('c') }}">{{ blog.CreatedAt|date('l, F j, Y') }}</time></div>
+                <h2>{{ blog.PostTitle }}</h2>
+                <div class="clear">&nbsp;</div>
+            </header>
+           {# <img src="{{ asset(['images/', blog.image]|join) }}" alt="{{ blog.title }} image not found" class="large" /> #}
+            <div>
+                <p>{{ blog.PostText|raw }}</p>
+            </div>            
+        </div>
+    </article>
+
+{% endblock %}

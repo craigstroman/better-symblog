@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        Welcome, {{ app.user.FirstName }} -
+    {% else %}
+        Home - 
+    {% endif %}
+{% endblock %}
+     
+{%block body%}
+            {% block fos_user_content %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {#<div>{{ dump() }}</div>#}
+                    <div class="clear">&nbsp;</div>
+                    <div><a href="{{path('blogger_blog_create_new_post')}}">Create new post</a></div>
+                    <div class="clear">&nbsp;</div>
+                {% endif %}
+            {% endblock fos_user_content %}
+            {% for blog in blogs %}
+                 {#<div>{{ dump(blog.titleslug) }}</div>#}
+                <article class="blog">
+                    <div class="date"><time datetime="{{ blog.CreatedAt|date('c') }}">{{ blog.CreatedAt|date('l, F j, Y') }}</time></div>
+                    <header>
+                        <h2><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id, 'slug': blog.titleslug}) }}">{{ blog.PostTitle }}</a></h2>
+                    </header>
+                    <div class="clear">&nbsp;</div>
+                    {#<img src="{{ asset(['images/', blog.image]|join) }}" />#}
+                    <div class="snippet">
+                        <p>{{ blog.PostText(600)|raw }}</p>
+                        <p class="continue"><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id, 'slug': blog.titleslug }) }}">Continue reading...</a></p>
+                    </div>
+                    <div class="clear">&nbsp;</div>
+        
+{#                    <footer class="meta">
+                        <p>Comments: -</p>
+                        <p>Posted by <span class="highlight">{{blog.author}}</span> at {{ blog.created|date('h:iA') }}</p>
+                        <p>Tags: <span class="highlight">{{ blog.tags }}</span></p>
+                    </footer>
+#}                    
+                </article>
+            {% else %}
+                <p>There are no blog entries for symblog</p>
+            {% endfor %}       
+{% endblock body %}    
