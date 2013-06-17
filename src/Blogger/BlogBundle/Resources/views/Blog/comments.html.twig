@@ -1,0 +1,50 @@
+{# src/Blogger/BlogBundle/Resouces/views/Blog/comments.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block title %}{{ blog.PostTitle }}{% endblock %}
+
+{% block body %}
+ <article>
+        <div class="blog-article">
+            <header>
+                <h2><a href="{{ path('BloggerBlogBundle_blog_show', { 'id': blog.id, 'slug': blog.titleslug}) }}">{{ blog.PostTitle }}</a></h2>
+                <div class="clear">&nbsp;</div>
+            </header>
+            <div>
+                <p>{{ blog.PostText(300)|raw }}...</p>
+            </div>
+        </div>
+ </article>
+ <div class="clear">&nbsp;</div>
+{% block fos_user_content %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} 
+ <section>
+    <form id="comments_form" name="comments_form" action="{{ path('BloggerBlogBundle_blog_show_comments', { 'id': blog.id, 'slug': blog.titleslug}) }}" {{ form_enctype(form) }} method="post">
+        {{ form_row(form._token) }} 
+        <input type="hidden" id="post_user" name="post_user" value="{{app.user.id}}"/>
+        <div class="row">
+            <label for="post_as">Post as:</label>
+            <div class="controls">
+                <input type="text" name="post_as" id="post_as" placeholder="Post as..."/>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="post_comments">Comments:</label>
+                <div class="controls">
+                    <textarea id="post_comments" name="post_comments"></textarea>
+                </div>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div class="row">
+                <label for="submit">&nbsp;</label>
+                <div class="controls">
+                    <button type="submit" id="submit" name="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+ </section>
+    {% endif %}
+{% endblock fos_user_content %} 
+ <div class="clear">&nbsp;</div>
+{% endblock %}    

@@ -3,7 +3,7 @@
             {% block fos_user_content %}
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                                <form action="{{ path('blogger_blog_create_new_post') }}" {{ form_enctype(form) }} method="POST" name="new_post" id="new_post_form">    
+                                <form action="{{ path('blogger_blog_create_new_post') }}" {{ form_enctype(form) }} method="post" name="new_post" id="new_post_form">    
                                             {{ form_row(form._token) }} 
                                            <input type="hidden" name="form[post_creator]" id="form_post_creator" value="{{app.user.id}}"/>
                                             <div class="row">

@@ -17,3 +17,8 @@ BloggerBlogBundle_blog_show:
         _method:  GET
         id: \d+
         
+BloggerBlogBundle_blog_show_comments:
+    pattern:  /article/{id}/{slug}/comments/
+    defaults: { _controller: BloggerBlogBundle:Blog:showComments }
+    requirements:
+        id: \d+

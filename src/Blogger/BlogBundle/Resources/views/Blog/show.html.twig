@@ -5,10 +5,7 @@
 
 {% block body %}
  {#<div>{{ dump(blog.PostTitle) }}</div>#}
-
-   
-   
-   <article>
+ <article>
         <div class="blog-article">
             <header>
                 <div class="date"><time datetime="{{ blog.CreatedAt|date('c') }}">{{ blog.CreatedAt|date('l, F j, Y') }}</time></div>
@@ -21,5 +18,11 @@
             </div>            
         </div>
     </article>
-
+     <div class="clear">&nbsp;</div>
+    <section>
+          <div>
+               <a href="{{ path('BloggerBlogBundle_blog_show_comments', { 'id': blog.id, 'slug': blog.titleslug }) }}">View Comments</a> | 
+               <a href="#">Share your thoughts</a>
+          </div>
+    </section> 
 {% endblock %}

@@ -39,7 +39,7 @@ class BlogController extends Controller{
 				$post->setPostTitle($formdata['post_title']);
 				$post->setPostText($formdata['post_text']);
 				
-				$em = $this->getDoctrine()->getEntityManager();
+				$em = $this->getDoctrine()->getManager();
 				$em->persist($post);
 				$em->flush();
 				
@@ -52,17 +52,48 @@ class BlogController extends Controller{
 	}
 	
 	public function showAction($id){
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		
 		$blog = $em->getRepository('BloggerBlogBundle:Post')->find($id);
 		
-		/*if($blogArticle){
+		
+		if(!$id){
 			throw $this>createNotFoundException('Unable to find Blog post');
-		}*/
+		}
         
 		return $this->render('BloggerBlogBundle:Blog:show.html.twig', array(
 		    'blog' => $blog,
 		));		
 		
+	}
+	
+	public function showCommentsAction($id){
+		
+		$form = $this->createFormBuilder()
+		    ->add('post_user', 'text')
+		    ->add('post_as', 'text')
+		    ->add('post_comments','textarea')
+		    ->getForm();		
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$blog = $em->getRepository('BloggerBlogBundle:Post')->find($id);
+
+		if(!$id){
+			throw $this>createNotFoundException('Unable to find Blog post');
+		}
+		
+		if ($this->getRequest()->getMethod() == 'POST') {
+		    $form->bind($this->getRequest()->get('form'));
+		    if ($form->isValid()) {
+				$formdata = $form->getData();
+				return new Response(var_dump($formdata));
+		    }
+		} 
+		
+		return $this->render('BloggerBlogBundle:Blog:comments.html.twig', array(
+		    'blog' => $blog,
+		    'form' => $form->createView()
+		));
 	}
 }
