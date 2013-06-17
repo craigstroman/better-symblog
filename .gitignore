@@ -17,4 +17,4 @@ Icon?
 ehthumbs.db
 Thumbs.db
 #other#
-#/app/config/parameters.yml
+/app/config/parameters.yml
